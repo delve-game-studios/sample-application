@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Models\Interfaces;
+namespace App\Helpers\Interfaces;
 
 interface Model {
-	protected $id;
 	public function getId();
 }
 

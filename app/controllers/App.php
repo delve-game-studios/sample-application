@@ -5,8 +5,9 @@ use \App\Helpers\Controller as ControllerHelper;
 
 class App extends ControllerHelper {
 	public function testAction() {
-		print_r($this->app->config);
-		echo 'The rabbit is running!';
+		$model = $this->app()->getModelInstance('Animal');
+		$repository = $this->app()->getRepository('Animal', $model);
+		echo $repository->delete();
 	}
 }
 

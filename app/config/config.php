@@ -1,8 +1,13 @@
 <?php
 
 return [
-	'config' => [
-		'domain' => 'local.samples'
+	'domain' => 'local.samples',
+	'namespaces' => [
+		'repositories' => 'App\Repositories',
+		'models' => 'App\Models',
+		'controllers' => 'App\Controllers',
+		'views' => 'App\Views',
+		'helpers' => 'App\Helpers'
 	]
 ];
 

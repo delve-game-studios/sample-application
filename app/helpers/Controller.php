@@ -4,6 +4,8 @@ namespace App\Helpers;
 use App\Application;
 
 abstract class Controller {
+	private $app;
+
 	public function __construct(Application $app) {
 		$this->app = $app;
 	}
@@ -22,6 +24,10 @@ abstract class Controller {
 		}
 
 		throw new Exception("Action does not exists", 404);
+	}
+
+	public function app() {
+		return $this->app;
 	}
 }
 

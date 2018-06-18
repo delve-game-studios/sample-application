@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 use App\Helpers\Repository;
-use App\Models\Animal;
 
 class Animal extends Repository {
 
@@ -28,6 +27,10 @@ class Animal extends Repository {
 		return $this->fetch([
 			'type' => 'Amphibian'
 		]);
+	}
+
+	public function save() {
+		echo 'The Model was saved!';
 	}
 
 }
