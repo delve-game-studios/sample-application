@@ -29,8 +29,12 @@ class Animal extends Repository {
 		]);
 	}
 
-	public function save() {
-		echo 'The Model was saved!';
+	public function save($update = false) {
+		if($update) {
+			$this->update();
+		} else {
+			$this->create();
+		}
 	}
 
 }

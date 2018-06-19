@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Helpers;
+use App\Application;
+use App\Helpers\Traits\HasApp;
 
 abstract class Repository {
+	use HasApp;
+
 	private $table_name;
 	private $model;
 
-
-	public function __construct(Model $model) {
+	public function __construct(Model $model, Application $app) {
+		$this->app = $app;
 		$this->model = $model;
 		$model_name = get_class($model);
 

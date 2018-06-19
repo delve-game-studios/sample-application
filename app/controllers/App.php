@@ -5,9 +5,8 @@ use \App\Helpers\Controller as ControllerHelper;
 
 class App extends ControllerHelper {
 	public function testAction() {
-		$model = $this->app()->getModelInstance('Animal');
-		$repository = $this->app()->getRepository('Animal', $model);
-		echo $repository->delete();
+		$view = $this->app()->getView();
+		$view->setParams(['phrase' => 'This is just an example don\'t judge by the <center> element in the HTML'])->render();
 	}
 }
 
