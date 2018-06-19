@@ -15,6 +15,24 @@ return [
 	],
 	'views' => [
 		'sufix' => 'View'
+	],
+	'storage' => [
+		'type' => 'local',
+		'local' => [
+			'path' => 'storage/',
+			'css' => [
+				'path' => 'css/',
+				'extension' => 'css'
+			],
+			'js' => [
+				'path' => 'js/',
+				'extension' => 'js'
+			],
+			'media' => [
+				'path' => 'media/',
+				'extensions' => ['png','jpg','jpeg','gif','mp4','mp3']
+			]
+		]
 	]
 ];
 

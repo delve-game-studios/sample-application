@@ -11,6 +11,7 @@ class Application {
 
 	public function init() {
 		$this->config = new Helpers\Config();
+		$this->storage = new Helpers\Storage();
 		$this->router = new Helpers\Router();
 		$this->router->fetchRoutes();
 		$this->router->matchRoute($this);
@@ -24,7 +25,7 @@ class Application {
 		return $this->router;
 	}
 
-	public function getModelInstance($model_name) {
+	public function getModel($model_name) {
 		$model_namespace = sprintf('%s\%s', $this->config()->getParam('namespaces::models'), $model_name);
 		$model = new $model_namespace($this);
 		return $model;
@@ -59,6 +60,10 @@ class Application {
 		$template = file_get_contents($template_path);
 
 		return $template;
+	}
+
+	public function storage() {
+		return $this->storage;
 	}
 
 }

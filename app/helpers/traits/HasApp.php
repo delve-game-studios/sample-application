@@ -8,6 +8,10 @@ trait HasApp {
 	protected function app() {
 		return $this->app;
 	}
+
+	protected function setApp(Application $app) {
+		$this->app = $app;
+	}
 }
 
 ?>

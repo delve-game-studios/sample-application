@@ -39,7 +39,7 @@ class Router {
 	}
 
 	public function getAction() {
-		$action = preg_replace('/Action/', '', $this->action);
+		$action = preg_replace('/(Action|View)/', '', $this->action);
 		return ucfirst($action);
 	}
 

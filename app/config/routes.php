@@ -1,13 +1,13 @@
 <?php
 
 return [
-	'/app/test-action' => [
+	'/app/test-view' => [
 		'class' => \App\Controllers\App::class,
-		'action' => 'testAction'
+		'action' => 'testViewAction'
 	],
-	'/app/tests-action' => [
+	'/app/test-model' => [
 		'class' => \App\Controllers\App::class,
-		'action' => 'testsAction'
+		'action' => 'testModelAction'
 	]
 ];
 
