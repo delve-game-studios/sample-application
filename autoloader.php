@@ -1,9 +1,7 @@
 <?php
 
 define('ROOT', __DIR__ . DIRECTORY_SEPARATOR);
-define('SRC', ROOT . 'app' . DIRECTORY_SEPARATOR);
-// echo '<pre>';
-
+ 
 spl_autoload_register(function($class) {
 	$file_name_arr = explode(DIRECTORY_SEPARATOR, $class);
 

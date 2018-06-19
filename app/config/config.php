@@ -7,7 +7,8 @@ return [
 		'models' => 'App\Models',
 		'controllers' => 'App\Controllers',
 		'views' => 'App\Views',
-		'helpers' => 'App\Helpers'
+		'helpers' => 'App\Helpers',
+		'modules' => 'App\Modules'
 	],
 	'templates' => [
 		'path' => 'App\Templates',

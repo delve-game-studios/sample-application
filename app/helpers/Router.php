@@ -1,28 +1,32 @@
 <?php
 
 namespace App\Helpers;
-use \App\Application;
+use App\Application;
+use App\Helpers\Traits\HasApp;
 
 class Router {
+	use HasApp;
 
 	private $routes = [];
 	private $controller;
 	private $action;
 
-	public function fetchRoutes() {
-		$routes = include('/app/config/routes.php');
+	public function __construct(Application $app) {
+		$this->setApp($app);
+		$routes = include(ROOT . 'app/config/routes.php');
 		if(is_array($routes) && !empty($routes)) {
 			$this->routes = $routes;
 		}
+		$this->loadModuleRoutes();
 	}
 
 	/**
 	* Static route only
 	*/
-	public function matchRoute(Application $app) {
+	public function matchRoute() {
 		$current_path = $_SERVER['REQUEST_URI'];
 
-		try {
+		if(!empty($this->routes[$current_path])) {
 			$route = $this->routes[$current_path];
 			$controller = $route['class'];
 			$action = $route['action'];
@@ -31,10 +35,11 @@ class Router {
 			$this->action = $action;
 
 			$reflection = new \ReflectionClass($controller);
-			$controller_instance = $reflection->newInstanceArgs([$app]);
+			$controller_instance = $reflection->newInstanceArgs([$this->app()]);
 			call_user_method_array($action, $controller_instance, $params);
-		} catch (Exception $e) {
-			throw new Exception("Error occured while processing your request", 404);
+		} else {
+			$this->app()->session()->set('last_error_url', $current_path);
+			header('Location: /page404');
 		}
 	}
 
@@ -45,6 +50,18 @@ class Router {
 
 	public function getController() {
 		return $this->controller;
+	}
+
+	public function loadModuleRoutes() {
+		$modules = include(ROOT . 'app/config/modules.php');
+
+		foreach($modules as $name => $module) {
+			$module_routes_file = ROOT . $module . '\config\routes.php';
+			if(file_exists($module_routes_file)) {
+				$routes = include($module . '\\config\\routes.php');
+				$this->routes = array_merge_recursive($this->routes, $routes);
+			}
+		}
 	}
 }
 

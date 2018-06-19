@@ -8,13 +8,17 @@ class Application {
 
 	private $config;
 	private $router;
+	private $storage;
+	private $request;
+	private $session;
 
 	public function init() {
 		$this->config = new Helpers\Config();
 		$this->storage = new Helpers\Storage();
-		$this->router = new Helpers\Router();
-		$this->router->fetchRoutes();
-		$this->router->matchRoute($this);
+		$this->router = new Helpers\Router($this);
+		$this->request = new Helpers\Request($this);
+		$this->session = new Helpers\Session();
+		$this->router->matchRoute();
 	}
 
 	public function config() {
@@ -23,6 +27,18 @@ class Application {
 
 	public function router() {
 		return $this->router;
+	}
+
+	public function storage() {
+		return $this->storage;
+	}
+
+	public function request() {
+		return $this->request;
+	}
+
+	public function session() {
+		return $this->session;
 	}
 
 	public function getModel($model_name) {
@@ -62,8 +78,9 @@ class Application {
 		return $template;
 	}
 
-	public function storage() {
-		return $this->storage;
+	public function modules() {
+		$modules = include(ROOT . 'app/config/modules.php');
+		return $modules;
 	}
 
 }

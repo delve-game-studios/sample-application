@@ -1,6 +1,10 @@
 <?php
 
 return [
+	'/page404' => [
+		'class' => \App\Controllers\App::class,
+		'action' => 'show404'
+	],
 	'/app/test-view' => [
 		'class' => \App\Controllers\App::class,
 		'action' => 'testViewAction'
@@ -16,6 +20,14 @@ return [
 	'/app/test-storage' => [
 		'class' => \App\Controllers\App::class,
 		'action' => 'testStorageAction'
+	],
+	'/app/test-request' => [
+		'class' => \App\Controllers\App::class,
+		'action' => 'testRequestAction'
+	],
+	'/app/test-modules' => [
+		'class' => \App\Controllers\App::class,
+		'action' => 'testModulesAction'
 	]
 ];
 

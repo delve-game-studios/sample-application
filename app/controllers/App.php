@@ -30,6 +30,22 @@ class App extends ControllerHelper {
 	public function testStorageAction() {
 		echo 'make a test for storage to get a file from local storage';
 	}
+
+	public function testRequestAction() {
+		$request = $this->app()->request();
+		print_r($request);
+	}
+
+	public function testModulesAction() {
+		$loginModule = $this->app()->modules();//->getModule('LoginModule');
+		var_dump($loginModule);
+		// $loginModule->
+	}
+
+	public function show404() {
+		$view = $this->app()->getView();
+		$view->setParams(['url' => $this->app()->session()->getParam('last_error_url')])->render();
+	}
 }
 
 ?>
