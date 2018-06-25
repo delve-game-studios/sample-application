@@ -12,11 +12,13 @@ class Template implements Helper {
 	private $helper;
 	private $html;
 	private $config;
+	private static $breadcrumb;
 
 	private function __construct($arguments) {
 		$config = Config::getInstance();
 
 		$this->params = [];
+		$this->breadcrumb = [];
 		
 		$arguments['class'] = end(explode('\\', $arguments['class']));
 		$arguments['method'] = end(explode('::', $arguments['method']));
@@ -82,13 +84,18 @@ class Template implements Helper {
 		$format = '<li class="breadcrumb-item %s">%s</li>';
 		$router = Router::getInstance();
 
-		$page = $router::$routes[$router::$path]['pageName'];
-		// $pageUrl = $router::$routes[$router::$path]
-		$crudiFormatted = sprintf($crudi[$router::$action], $page);
 		
 		$breadcrumb = '<div class="row"><div class="col-md-8 offset-md-2"><nav aria-label="breadcrumb"><ol class="breadcrumb">';
-		$breadcrumb .= sprintf($format, '', '<a href="#">' . $page . '</a>') . PHP_EOL;
-		$breadcrumb .= sprintf($format, 'active" aria-current="page', $crudiFormatted) . PHP_EOL;
+		var_dump(static::$breadcrumb);exit;
+		foreach(static::$breadcrumb as $item) {
+			if($item == end(static::$breadcrumb)) {
+				$crudiFormatted = in_array($item, $crudi) ? sprintf($crudi[$router::$action], $item) : $item;
+				$args = ['active" aria-current="page', $crudiFormatted];
+			} else {
+				$args = ['', '<a href="#">' . $item . '</a>'];
+			}
+			$breadcrumb .= vsprintf($format, $args);
+		}
 		$breadcrumb .= '</ol></nav></div></div>';
 		return $breadcrumb;
 	}
@@ -142,5 +149,14 @@ class Template implements Helper {
 		}, $format);
 	}
 
+	public static function addToBreadcrumb($item) {
+		array_push(static::$breadcrumb, $item);
+		return static::$breadcrumb;
+	}
+
+	public static function resetBreadcrumb() {
+		static::$breadcrumb = [];
+		return static::$breadcrumb;
+	}
 
 }

@@ -1,3 +1,5 @@
 <?php
 
-return [];
+return [
+	'Users' => \App\Modules\Users\Module::class,
+];

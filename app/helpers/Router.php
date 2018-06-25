@@ -6,6 +6,7 @@ use App\Helpers\Controller;
 use App\Helpers\Interfaces\Helper;
 use App\Factories\HelpersFactory;
 use App\Factories\ControllersFactory;
+use App\Helpers\Module;
 use App\Application;
 
 class Router implements Helper {
@@ -38,6 +39,10 @@ class Router implements Helper {
 
 	private function __construct() {
 		$routes = include(ROOT . 'app/config/routes.php');
+		
+		$moduleHelper = Module::getInstance();
+
+		$routes = array_merge($routes, $moduleHelper->getModulesRoutes());
 
 		if(is_array($routes) && !empty($routes)) {
 			self::$routes = $routes;
@@ -46,8 +51,6 @@ class Router implements Helper {
 		self::$path = $_SERVER['REQUEST_URI'];
 		if($route = &self::$routes[self::$path]) 
 			$route = array_merge($route, ['params' => []]);
-
-		$this->loadModuleRoutes();
 	}
 
 	/**
