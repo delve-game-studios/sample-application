@@ -1,11 +1,13 @@
 body {
-  min-height: 100vh; 
+	/*height: 100vh;*/
+	min-height: 100vh;
+	background-color: rgb(240,240,240);
 }
 .flex-grow {
 	flex: 1;
 }
 .navbar {
-    /*margin-bottom: 20px;*/
+    /*height: 80px;*/
 }
 .dataTables_wrapper .dataTables_paginate {
 	width: 100%;
@@ -37,4 +39,14 @@ body {
 
 article {
 	padding: 10px;
+	background-color: white;
+}
+article.notFound {
+	border-radius: 10px;
+	border: 1px solid grey;
+    margin-top: 25vh;
+}
+
+section.container-fluid div.primary-container {
+	background: white;
 }

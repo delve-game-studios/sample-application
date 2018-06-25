@@ -84,10 +84,11 @@ class Template implements Helper {
 		$router = Router::getInstance();
 		$page = $router::$routes[$router::$path]['pageName'];
 		// $pageUrl = $router::$routes[$router::$path]
+		$url = $router->getUrlFromPageName($page);
 		$crudiFormatted = sprintf($crudi[$router::$action], $page);
 		
-		$breadcrumb = '<div class="row"><div class="col-md-8 offset-md-2"><nav aria-label="breadcrumb"><ol class="breadcrumb">';
-		$breadcrumb .= sprintf($format, '', '<a href="#">' . $page . '</a>') . PHP_EOL;
+		$breadcrumb = '<div class="row"><div class="col-md-12" style="padding-top:20px;"><nav aria-label="breadcrumb"><ol class="breadcrumb">';
+		$breadcrumb .= sprintf($format, '', '<a href="' . $url . '">' . $page . '</a>') . PHP_EOL;
 		$breadcrumb .= sprintf($format, 'active" aria-current="page', $crudiFormatted) . PHP_EOL;
 		$breadcrumb .= '</ol></nav></div></div>';
 		return $breadcrumb;

@@ -71,8 +71,8 @@ class Router implements Helper {
 			return call_user_func_array([$controller, self::$action], self::$params);
 		}
 
-		Session::getInstance()->set('last_error_url', self::$path);
-		header('Location: /page404');
+		Session::getInstance()->setParam('last_error_url', self::$path);
+		header('Location: /404');
 	}
 
 	/**
@@ -88,5 +88,21 @@ class Router implements Helper {
 				self::$routes = array_merge_recursive(self::$routes, $routes);
 			}
 		}
+	}
+
+	public function getUrlFromPageName($pageName = false) {
+		if(!$pageName) {
+			return self::$path;
+		}
+
+		$routes = self::$routes;
+
+		foreach($routes as $path => $route) {
+			if(isset($route['pageName']) && $route['pageName'] == $pageName) {
+				return $path;
+			}
+		}
+
+		return '/';
 	}
 }

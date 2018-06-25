@@ -12,5 +12,9 @@ return [
 		'action' => 'index',
 		'pageName' => 'Animals',
 		'nav' => 2
+	],
+	'/404' => [
+		'class' => 'App\Controllers\App',
+		'action' => 'notFound'
 	]
 ];

@@ -23,4 +23,13 @@ class App extends View {
 		$template = HelpersFactory::getInstance()->get('Template', $arguments);
 		$this->setTemplate($template->getHTML())->render();
 	}
+
+	public function notFound() {
+		$arguments = [
+			'class' => __CLASS__,
+			'method' => __METHOD__
+		];
+		$template = HelpersFactory::getInstance()->get('Template', $arguments);
+		$this->setTemplate($template->getHTML())->render();
+	}
 }
