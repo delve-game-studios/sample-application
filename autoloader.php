@@ -1,6 +1,4 @@
 <?php
-
-define('ROOT', __DIR__ . DIRECTORY_SEPARATOR);
  
 spl_autoload_register(function($class) {
 	$file_name_arr = explode(DIRECTORY_SEPARATOR, $class);
@@ -16,8 +14,5 @@ spl_autoload_register(function($class) {
 	$file = ROOT . implode(DIRECTORY_SEPARATOR, $file_name_arr) . '.php';
 	if(file_exists($file)) {
 		require_once $file;
-		// var_dump($file);
 	}
 });
-
-?>

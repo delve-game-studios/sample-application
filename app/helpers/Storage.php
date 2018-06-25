@@ -1,50 +1,73 @@
 <?php
 
 namespace App\Helpers;
-use App\Helpers\Traits\HasApp;
-use App\Application;
+use App\Helpers\Traits\SingletonPattern;
+use App\Helpers\Traits\HasConfig;
+use App\Helpers\Interfaces\Helper;
 
-class Storage {
-	use HasApp;
+class Storage implements Helper {
+	use SingletonPattern;
+	use HasConfig;
 
-	private $storage_type;
-	private $storage_path;
-	private $available_media_types;
+	/**
+	* @property String $storageType
+	**/
+	private $storageType;
+	
+	/**
+	* @property String $storagePath
+	**/
+	private $storagePath;
 
-	public function __constructor(Application $app) {
-		$this->setApp($app);
-		$config = $this->app()->config();
-		$this->storage_type = $config->getParam('storage::type');
-		$this->storage_path = $config->getParam('storage::' . $this->storage_type);
-		$available_media_types = $config->getParam('storage::' . $this->storage_type . '::media::extensions');
-		foreach($config->getParam('storage::' . $this->storage_type) as $key => $value) {
+	/**
+	* @property Array $availableMediaTypes
+	**/
+	private $availableMediaTypes;
+
+	private function __construct() {
+		$config = $this->getConfig();
+		$this->storageType = $config->getParam('storage::type');
+		$this->storagePath = $config->getParam('storage::' . $this->storageType);
+		$this->availableMediaTypes = $config->getParam('storage::' . $this->storageType . '::media::extensions');
+		foreach($config->getParam('storage::' . $this->storageType) as $key => $value) {
 			if(in_array($key, ['media', 'path'])) continue;
-			$available_media_types[] = $value['extension'];
+			$this->availableMediaTypes[] = $value['extension'];
 		}
 	}
 
+	/**
+	* @return String $storageType
+	**/
 	public function getStorageType() {
-		return $this->storage_type;
+		return $this->storageType;
 	}
 
+	/**
+	* @return String $storagePath
+	**/
 	public function getStoragePath() {
-		return $this->storage_path;
+		return $this->storagePath;
 	}
 
+	/**
+	* @param String $path Local path for the file
+	* @return String Url for the file
+	**/
 	public function fetch($path) {
 		$extension = end(explode('.', $path));
 
-		if(in_array($extension, $available_media_types)) {
+		if(in_array($extension, $this->availableMediaTypes)) {
 			// add functionality to return the URI to the given file in storage
 		}
 
-		return false;
+		return;
 	}
 
+	/**
+	* Stores the file from request
+	**/
 	public function store() {
 		// make function to store a file using the storage type from request
 	}
 
 }
-
-?>

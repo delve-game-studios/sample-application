@@ -1,51 +1,14 @@
 <?php
 
 namespace App\Controllers;
-use \App\Helpers\Controller as ControllerHelper;
+use App\Controllers\Controller as AbstractController;
+use App\Helpers\Request;
 
-class App extends ControllerHelper {
+class App extends AbstractController {
 
-	public function testViewAction() {
-		$view = $this->app()->getView();
-		$view->setParams(['phrase' => 'This is just an example don\'t judge by the <center> element in the HTML'])->render();
-	}
-
-	public function testModelAction() {
-		$model = $this->app()->getModel('Animal');
-		$model->setType('Bird');
-
-		echo $model->getType();
-	}
-
-	public function testRepositoryAction() {
-		$new_repository = $this->app()->getRepository('Animal');
-		$new_repository->save();
-		echo '<br>';
-		$Animal = $this->app()->getModel('Animal');
-		$Animal->setType('Bird');
-		$old_repository = $this->app()->getRepository('Animal', $Animal);
-		$old_repository->save();
-	}
-
-	public function testStorageAction() {
-		echo 'make a test for storage to get a file from local storage';
-	}
-
-	public function testRequestAction() {
-		$request = $this->app()->request();
-		print_r($request);
-	}
-
-	public function testModulesAction() {
-		$loginModule = $this->app()->modules();//->getModule('LoginModule');
-		var_dump($loginModule);
-		// $loginModule->
-	}
-
-	public function show404() {
-		$view = $this->app()->getView();
-		$view->setParams(['url' => $this->app()->session()->getParam('last_error_url')])->render();
+	public function index(Request $request) {
+		$view = $this->getView();
+		$view->setNavbar();
+		$view->home();
 	}
 }
-
-?>

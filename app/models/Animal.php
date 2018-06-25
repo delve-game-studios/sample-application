@@ -1,14 +1,9 @@
 <?php
 
 namespace App\Models;
-use Interfaces\Model as ModelInterface;
-use App\Helpers\Model as ModelHelper;
+use App\Models\Traits\BasicModel;
 
-class Animal extends ModelHelper {
-	protected $type;
-	protected $name;
-	protected $max_age;
-	protected $common_traits;
+class Animal extends Model {
+	use BasicModel;
+
 }
-
-?>

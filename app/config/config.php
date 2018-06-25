@@ -2,6 +2,8 @@
 
 return [
 	'domain' => 'local.samples',
+	'title' => 'Sample Application',
+	'titleFormat' => '%page - %app',
 	'namespaces' => [
 		'repositories' => 'App\Repositories',
 		'models' => 'App\Models',
@@ -13,9 +15,6 @@ return [
 	'templates' => [
 		'path' => 'App\Templates',
 		'extension' => 'template.html'
-	],
-	'views' => [
-		'sufix' => 'View'
 	],
 	'storage' => [
 		'type' => 'local',
@@ -36,5 +35,3 @@ return [
 		]
 	]
 ];
-
-?>

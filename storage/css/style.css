@@ -1,0 +1,40 @@
+body {
+  min-height: 100vh; 
+}
+.flex-grow {
+	flex: 1;
+}
+.navbar {
+    /*margin-bottom: 20px;*/
+}
+.dataTables_wrapper .dataTables_paginate {
+	width: 100%;
+	text-align: center;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+	background: none !important;
+	background-color: white !important;
+	border: 1px solid transparent !important;
+	box-shadow: none;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button .page-link:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.margin-top {
+	margin-top: 20px;
+}
+
+.jumbotron{
+    background: url(/storage/media/light-blue-color-wallpaper-4.jpg) no-repeat center center; 
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+article {
+	padding: 10px;
+}

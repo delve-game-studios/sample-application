@@ -1,8 +1,5 @@
 <?php
-
-require_once 'autoloader.php';
-// echo '<pre>';
-$app = new \App\Application();
-$app->init();
-
-?>
+define('ROOT', __DIR__ . DIRECTORY_SEPARATOR);
+require __DIR__ . DIRECTORY_SEPARATOR . 'autoloader.php';
+$app = App\Application::getInstance();
+$app->exec();

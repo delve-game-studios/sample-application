@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Helpers;
-use App\Helpers\Traits\HasParams;
+use App\Helpers\Interfaces\Helper;
 
-class Config {
-	use HasParams;
+class Config implements Helper {
+	use Traits\HasParams;
+	use Traits\SingletonPattern;
 
-	public function __construct() {
+	private function __construct() {
 		$this->params = include(ROOT . 'app/config/config.php');
 	}
 
 }
-
-?>

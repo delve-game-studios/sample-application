@@ -1,0 +1,29 @@
+<section class="container-fluid flex-grow margin-top">
+	{{$breadcrumb}}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row"></div>
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<table id="animals"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('#animals').DataTable( {
+		        data: {{$dataSet}},
+		        columns: [
+		            { title: "ID", data: 'id' },
+		            { title: "Name", data: 'name' },
+		            { title: "Description", data: 'description' }
+		        ],
+		        language: { search: "" },
+		        dom: 'B<"clear">f<t><"row"<"col-md-8 offset-md-2 text-center"p>>',
+	        	buttons: ['print', 'csv', 'excel']
+		    });
+		    $('input[type="search"]').attr('placeholder', 'Search...');
+		});
+	</script>
+</section>

@@ -1,0 +1,89 @@
+<?php
+
+namespace App;
+use App\Factories\HelpersFactory;
+use App\Helpers\Traits\SingletonPattern;
+
+
+class Application {
+	use SingletonPattern;
+
+	// *
+	// * @var App\Helpers\Config
+	
+	// private $config;
+
+
+	/**
+	* @var App\Helpers\Router
+	*/
+	private $router;
+
+
+	// /**
+	// * @var App\Helpers\Storage
+	// */
+	// private $storage;
+
+
+	// *
+	// * @var App\Helpers\Request
+	
+	// private $request;
+
+
+	// /**
+	// * @var App\Helpers\Session
+	// */
+	// private $session;
+
+	private function __construct() {
+		/**
+		* @var App\Helpers\Factories\HelperFactory
+		*/
+		$factory = HelpersFactory::getInstance();
+
+		// $this->config = $factory->get('Config');
+		$this->router = $factory->get('Router');
+		// $this->storage = $factory->get('Storage');
+		// $this->request = $factory->get('Request');
+		// $this->session = $factory->get('Session');
+
+		$this->router->matchRoute();
+	}
+
+	// /**
+	// * @return App\Helpers\Config
+	// */
+	// public function getConfig() {
+	// 	return $this->config;
+	// }
+
+	// /**
+	// * @return App\Helpers\Router
+	// */
+	// public function getRouter() {
+	// 	return $this->router;
+	// }
+
+	// /**
+	// * @return App\Helpers\Storage
+	// */
+	// public function getStorage() {
+	// 	return $this->storage;
+	// }
+
+	// /**
+	// * @return App\Helpers\Request
+	// */
+	// public function getRequest() {
+	// 	return $this->request;
+	// }
+
+	// /**
+	// * @return App\Helpers\Session
+	// */
+	// public function getSession() {
+	// 	return $this->session;
+	// }
+}

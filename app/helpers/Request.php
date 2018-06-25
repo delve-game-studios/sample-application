@@ -1,42 +1,56 @@
 <?php
 
 namespace App\Helpers;
-use App\Application;
-use App\Helpers\Traits\HasApp;
 use App\Helpers\Traits\HasParams;
+use App\Helpers\Traits\SingletonPattern;
+use App\Helpers\Interfaces\Helper;
 
-class Request extends Config {
-	use HasApp, HasParams;
+class Request implements Helper {
+	use SingletonPattern;
+	use HasParams;
 
-	private $is_post;
-	private $is_ajax;
+	/**
+	* @property Boolean
+	**/
+	private $isPost;
 
-	public function __construct(Application $app) {
-		$this->setApp($app);
-		$this->is_post = false;
-		$this->is_ajax = false;
+	/**
+	* @property Boolean 
+	**/
+	private $isAjax;
+
+	private function __construct() {
+		$this->isPost = false;
+		$this->isAjax = false;
 		$this->refresh();
 	}
 
+	/**
+	* @return Boolean $isPost Checks if it's Post Request.
+	**/
 	public function isPost() {
-		return $this->is_post;
+		return $this->isPost;
 	}
 
+	/**
+	* @return Boolean $isAjax Checks if the request is via AJAX
+	**/
 	public function isAjax() {
-		return $this->is_ajax;
+		return $this->isAjax;
 	}
 
+	/**
+	* Refreshes the Request Helper
+	**/
 	public function refresh() {
 		if(!empty($_POST)) {
-			$this->is_post = true;
+			$this->isPost = true;
 			$this->params['post'] = $_POST;
 
 		}
 		$this->params['get'] = $_GET;
 
-		$this->is_ajax = (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+		$this->isAjax = (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 	}
 
 }
-
-?>

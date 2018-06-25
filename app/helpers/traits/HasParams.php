@@ -3,19 +3,32 @@
 namespace App\Helpers\Traits;
 
 trait HasParams {
+
+	/**
+	* @property Array $params
+	**/
 	private $params;
 	
+	/**
+	* Returns all the parameters
+	* @return Array
+	**/
 	public function getAllParams() {
 		return $this->params;
 	}
 
-	public function getParam($param_name, $default_value = null) {
-		$param_arr = explode('::', $param_name);
+	/**
+	* Returns a parameter value by key or default value
+	* @param String $paramName 
+	* @param Mixed $defaultValue
+	**/
+	public function getParam($paramName, $defaultValue = null) {
+		$param_arr = explode('::', $paramName);
 
 		$depth = $this->params;
 		foreach ($param_arr as $key => $value) {
-			if(empty($depth[$value])) {
-				return $default_value;
+			if(!isset($depth[$value])) {
+				return $defaultValue;
 			}
 
 			$depth = $depth[$value];
@@ -23,21 +36,25 @@ trait HasParams {
 		return $depth;
 	}
 
-	public function setParam($param_name, $param_value) {
-		$param_arr = explode('::', $param_name);
+	/**
+	* Basic setter by paramName and paramValue
+	* @param String $paramName
+	* @param Mixed $paramValue
+	* @return Mixed $paramValue or False if error
+	**/
+	public function setParam($paramName, $paramValue) {
+		$param_arr = explode('::', $paramName);
 
 		$depth = &$this->params;
 		foreach($param_arr as $key => $value) {
-			if(empty($depth[$value]) && $key < (count($param_arr) - 1)) {
+			if(!isset($depth[$value]) && $key < (count($param_arr) - 1)) {
 				$depth[$value] = [];
 			} elseif ($key == (count($param_arr) - 1)) {
-				$depth[$value] = $param_value;
-				return $param_value;
+				$depth[$value] = $paramValue;
+				return $paramValue;
 			}
 		}
 
 		return false;
 	}
 }
-
-?>
