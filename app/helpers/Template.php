@@ -80,22 +80,15 @@ class Template implements Helper {
 			'delete' => 'Deleting %s',
 			'index' => 'List'
 		];
-
 		$format = '<li class="breadcrumb-item %s">%s</li>';
 		$router = Router::getInstance();
-
+		$page = $router::$routes[$router::$path]['pageName'];
+		// $pageUrl = $router::$routes[$router::$path]
+		$crudiFormatted = sprintf($crudi[$router::$action], $page);
 		
 		$breadcrumb = '<div class="row"><div class="col-md-8 offset-md-2"><nav aria-label="breadcrumb"><ol class="breadcrumb">';
-		var_dump(static::$breadcrumb);exit;
-		foreach(static::$breadcrumb as $item) {
-			if($item == end(static::$breadcrumb)) {
-				$crudiFormatted = in_array($item, $crudi) ? sprintf($crudi[$router::$action], $item) : $item;
-				$args = ['active" aria-current="page', $crudiFormatted];
-			} else {
-				$args = ['', '<a href="#">' . $item . '</a>'];
-			}
-			$breadcrumb .= vsprintf($format, $args);
-		}
+		$breadcrumb .= sprintf($format, '', '<a href="#">' . $page . '</a>') . PHP_EOL;
+		$breadcrumb .= sprintf($format, 'active" aria-current="page', $crudiFormatted) . PHP_EOL;
 		$breadcrumb .= '</ol></nav></div></div>';
 		return $breadcrumb;
 	}
@@ -110,6 +103,7 @@ class Template implements Helper {
 		$routes = $router::$routes;
 
 		uasort($routes, function($a, $b) {
+			if(!isset($a['nav'], $b['nav'])) return 1;
 			return ($a['nav'] < $b['nav']) ? -1 : 1;
 		});
 
@@ -147,16 +141,6 @@ class Template implements Helper {
 		return preg_replace_callback('/\%(\w+)/', function($m) use($args) {
 			return $args[$m[1]];
 		}, $format);
-	}
-
-	public static function addToBreadcrumb($item) {
-		array_push(static::$breadcrumb, $item);
-		return static::$breadcrumb;
-	}
-
-	public static function resetBreadcrumb() {
-		static::$breadcrumb = [];
-		return static::$breadcrumb;
 	}
 
 }

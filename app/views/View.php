@@ -78,14 +78,4 @@ abstract class View {
 	public function setBreadcrumb() {
 		$this->setParam('breadcrumb', Template::getBreadcrumb());
 	}
-
-	public function addToBreadcrumb($item) {
-		Template::addToBreadcrumb($item);
-		return $this;
-	}
-
-	public function resetBreadcrumb() {
-		Template::resetBreadcrumb();
-		return $this;
-	}
 }
