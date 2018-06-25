@@ -50,23 +50,9 @@ class Storage implements Helper {
 	}
 
 	/**
-	* @param String $path Local path for the file
-	* @return String Url for the file
-	**/
-	public function fetch($path) {
-		$extension = end(explode('.', $path));
-
-		if(in_array($extension, $this->availableMediaTypes)) {
-			// add functionality to return the URI to the given file in storage
-		}
-
-		return;
-	}
-
-	/**
 	* Stores the file from request
 	**/
-	public function store() {
+	public function store(Request $request) {
 		// make function to store a file using the storage type from request
 	}
 
