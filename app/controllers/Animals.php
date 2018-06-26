@@ -15,7 +15,7 @@ class Animals extends AbstractController {
 		$view->index($animals);
 	}
 
-	public function read(Request $request) {
-
+	public function edit(Request $request) {
+		var_dump($request);exit;
 	}
 }

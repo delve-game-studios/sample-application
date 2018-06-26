@@ -47,6 +47,8 @@ class Router implements Helper {
 		if(is_array($routes) && !empty($routes)) {
 			self::$routes = $routes;
 		}
+
+		self::$routes = $this->getRegexpFromRoutes();
 		
 		self::$path = $_SERVER['REQUEST_URI'];
 		if($route = &self::$routes[self::$path]) 
@@ -60,13 +62,42 @@ class Router implements Helper {
 	public function matchRoute() {
 		$controllersFactory = ControllersFactory::getInstance();
 
+		// if($route = self::$routes[self::$path]) {
+		// 	self::$controller = end(explode('\\', $route['class']));
+		// 	self::$action = $route['action'];
+		// 	self::$params = $route['params'];
+			
+		// 	array_unshift(self::$params, Request::getInstance());
+
+		// 	$controller = $controllersFactory->get(self::$controller);
+		// 	return call_user_func_array([$controller, self::$action], self::$params);
+		// }
+
+		foreach(self::$routes as $route ) {
+			if(isset($route['regex']) && preg_match("#{$route['regex']}#", self::$path, $matches)) {
+				$request = Request::getInstance();
+
+				self::$controller = !empty($matches['controller']) ? ucfirst($matches['controller']) : 'App';
+
+				self::$action = !empty($matches['action']) ? $matches['action'] : 'index';
+
+				self::$params = !empty($matches['params']) ? [$request, $matches['params']] : [$request];
+
+				foreach($matches as $key => $value) {
+					$request->setParam("get::{$key}", $value);
+				}
+
+				$controller = $controllersFactory->get(self::$controller);
+				return call_user_func_array([$controller, self::$action], self::$params);
+			}
+		}
+
 		if($route = self::$routes[self::$path]) {
 			self::$controller = end(explode('\\', $route['class']));
 			self::$action = $route['action'];
 			self::$params = $route['params'];
 			
 			array_unshift(self::$params, Request::getInstance());
-
 			$controller = $controllersFactory->get(self::$controller);
 			return call_user_func_array([$controller, self::$action], self::$params);
 		}
@@ -104,5 +135,38 @@ class Router implements Helper {
 		}
 
 		return '/';
+	}
+
+	public function getRegexpFromRoutes() {
+		$newRoutes = [];
+		foreach(self::$routes as $uri => $route) {
+			if(isset($route['constraints'])) {
+				$uriArr = explode('/', trim($uri, '/'));
+				foreach($uriArr as $key => $part) {
+					if(isset($route['constraints'][$part])) {
+						$p = trim($part, ':');
+						$uriArr[$key] = "(?<{$p}>{$route['constraints'][$part]})";
+					} else {
+						$uriArr[$key] = "({$part})";
+
+						if(!isset($route['class']) && $key === 0) {
+							$uriArr[$key] = "(?<controller>{$part})";
+						}
+						if(!isset($route['action']) && $key === 2) {
+							$uriArr[$key] = "(?<action>{$part})";
+						}
+					}
+				}
+				$newRoutes[$uri] = array_merge($route, ['regex' => '/' . implode('/', $uriArr)]);
+			} else {
+				$newRoutes[$uri] = $route;
+			}
+		}
+
+		return $newRoutes;
+	}
+
+	public function getRouteRegexFromURI() {
+		var_dump(self::$routes);exit;
 	}
 }
