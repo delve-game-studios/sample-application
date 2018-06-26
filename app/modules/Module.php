@@ -15,7 +15,7 @@ abstract class Module {
 	protected $dependencies;
 
 	private function __construct() {
-		$base = realpath('.' . DIRECTORY_SEPARATOR . dirname(get_called_class())) . DIRECTORY_SEPARATOR;
+		$base = realpath(MODULES . dirname(get_called_class())) . DIRECTORY_SEPARATOR;
 		$this->config = include($base . 'config/config.php');
 		$this->routes = include($base . 'config/routes.php');
 		$this->factories = include($base . 'config/factories.php');

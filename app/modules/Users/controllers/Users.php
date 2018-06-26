@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Users\Controllers;
+namespace Users\Controllers;
 use App\Controllers\Controller as AbstractController;
 use App\Helpers\Request;
 

@@ -31,6 +31,6 @@ return [
 	],
 	'modules' => [
 		'Module' => \App\Modules\Module::class,
-		'Users' => \App\Modules\Users\Module::class,
+		'Users' => \Users\Module::class,
 	]
 ];

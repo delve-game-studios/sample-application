@@ -11,7 +11,13 @@ spl_autoload_register(function($class) {
 		$file_name_arr[$key] = lcfirst($value);
 	}
 
-	$file = ROOT . implode(DIRECTORY_SEPARATOR, $file_name_arr) . '.php';
+	$base = ROOT;
+	
+	if($file_name_arr[0] !== 'app') {
+		$base = MODULES;
+	}
+
+	$file = $base . implode(DIRECTORY_SEPARATOR, $file_name_arr) . '.php';
 	if(file_exists($file)) {
 		require_once $file;
 	}

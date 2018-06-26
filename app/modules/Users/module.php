@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Users;
+namespace Users;
 use App\Modules\Module as AbstractModule;
 
 class Module extends AbstractModule {}

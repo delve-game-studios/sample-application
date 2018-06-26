@@ -101,7 +101,7 @@ class Router implements Helper {
 			$controller = $controllersFactory->get(self::$controller);
 			return call_user_func_array([$controller, self::$action], self::$params);
 		}
-
+		
 		Session::getInstance()->setParam('last_error_url', self::$path);
 		header('Location: /404');
 	}

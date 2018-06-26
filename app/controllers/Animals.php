@@ -16,6 +16,7 @@ class Animals extends AbstractController {
 	}
 
 	public function edit(Request $request) {
+		\App\Modules\Breadcrumb\Controllers\Breadcrumb::index();
 		var_dump($request);exit;
 	}
 }
