@@ -10,6 +10,7 @@ return [
 		'Controller' => \App\Helpers\Controller::class,
 		'Template' => \App\Helpers\Template::class,
 		'Module' => \App\Helpers\Module::class,
+		'Doctrine' => \App\Helpers\Doctrine::class,
 	],
 	'controllers' => [
 		'Controller' => \App\Controllers\Controller::class,

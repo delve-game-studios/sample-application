@@ -33,5 +33,15 @@ return [
 				'extensions' => ['png','jpg','jpeg','gif','mp4','mp3']
 			]
 		]
+	],
+	'DB' => [
+		'params' => [
+			'driver' => 'pdo_mysql',
+			'user' => 'root',
+			'password' => '61p1yw4azD16',
+			'dbname' => 'sampledb'
+		],
+		'paths' => [dirname(APP . 'models')],
+		'isDevMode' => false
 	]
 ];

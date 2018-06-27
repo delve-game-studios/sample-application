@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Controllers\Controller as AbstractController;
 use App\Helpers\Request;
+use App\Helpers\Doctrine;
 
 class Animals extends AbstractController {
 
@@ -16,7 +17,7 @@ class Animals extends AbstractController {
 	}
 
 	public function edit(Request $request) {
-		\App\Modules\Breadcrumb\Controllers\Breadcrumb::index();
-		var_dump($request);exit;
+		$doct = Doctrine::getInstance();
+		var_dump($doct);exit;
 	}
 }

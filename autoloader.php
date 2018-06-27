@@ -1,4 +1,6 @@
 <?php
+
+require_once '/vendor/autoload.php';
  
 spl_autoload_register(function($class) {
 	$file_name_arr = explode(DIRECTORY_SEPARATOR, $class);
@@ -8,12 +10,14 @@ spl_autoload_register(function($class) {
 			continue;
 		}
 
-		$file_name_arr[$key] = lcfirst($value);
+		$file_name_arr[$key] = strtolower($value);
 	}
 
 	$base = ROOT;
-	
-	if($file_name_arr[0] !== 'app') {
+	var_dump($file_name_arr);
+	if($file_name_arr[0] === 'doctrine') {
+		$base = VENDOR;
+	} elseif($file_name_arr[0] !== 'app') {
 		$base = MODULES;
 	}
 
