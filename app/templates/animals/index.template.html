@@ -3,7 +3,7 @@
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-8 offset-md-2 primary-container">
-					{{$breadcrumb}}
+					{{ $breadcrumb }}
 				</div>
 			</div>
 			<div class="row">
@@ -16,7 +16,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 		    $('#animals').DataTable( {
-		        data: {{$dataSet}},
+		        data: {{ $dataSet }},
 		        columns: [
 		            { title: "ID", data: 'id' },
 		            { title: "Name", data: 'name' },

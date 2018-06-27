@@ -1,8 +1,8 @@
 <?php
 namespace App\Helpers;
 use App\Helpers\Traits\SingletonPattern;
-use \Doctrine\ORM\Toos\Setup;
-use \Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
 
 class Doctrine {
 	use SingletonPattern;

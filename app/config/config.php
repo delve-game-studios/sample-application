@@ -14,7 +14,8 @@ return [
 	],
 	'templates' => [
 		'path' => 'App\Templates',
-		'extension' => 'template.html'
+		'extension' => 'template.html',
+		'brackets' => ['{{', '}}'],
 	],
 	'storage' => [
 		'type' => 'local',

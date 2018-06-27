@@ -53,26 +53,51 @@ abstract class View {
 	public function render() {
 		$template = $this->getTemplate();
 
-		// just a basic template engine it can be improved a lot
-		foreach($this->getParams() as $key => $value) {
-			$regex = sprintf('/({{\$%s\|?(encoded)?}})/', $key);
-			$template = preg_replace_callback($regex, function($m) use ($value){
-				if(!empty($m[2])) {
-					switch ($m[2]) {
-						case 'encoded':
-							$value = htmlentities($value);
-						break;
-					}
-				}
-				return $value;
-			}, $template);
-		}
+		extract($this->getParams());
 
-		echo $template;
+		$template = preg_replace_callback('#\{\{\s+?(?<action>if|for|foreach|elseif)\s+?(?<condition>.*)\s+?\}\}#', function($m) {
+			if($m['action'] == 'foreach') {
+				$var = reset(explode(' as ', $m['condition']));
+
+				$m['action'] = "if(!empty({$var})):foreach";
+			}
+			
+			return "<?php {$m['action']}({$m['condition']}): ?>";
+		}, $template);
+
+		$template = preg_replace_callback('#\{\{\s+?(?<action>else|forelse)\s+\}\}#', function($m) {
+			if($m['action'] == 'forelse') {
+				$m['action'] = 'endforeach;else';
+			}
+
+			return "<?php {$m['action']}: ?>";
+		}, $template);
+
+		$template = preg_replace_callback('#\{\{\s+?(?<action>endif|endforeach|endfor|endforelse)\s+\}\}#', function($m) {
+			if($m['action'] == 'endforeach') {
+				$m['action'] = 'endforeach;endif';
+			}
+			
+			if($m['action'] == 'endforelse') {
+				$m['action'] = 'endif';
+			}
+
+			return "<?php {$m['action']}; ?>";
+		}, $template);
+
+		$template = preg_replace('#(\{\{\s+?)+?#', '<?= ', $template);
+		
+		$template = preg_replace('#(\s+?\}\})+?#', ' ?>', $template);
+
+		echo eval(" ?>{$template}<?php ");
 	}
 
 	public function setNavbar() {
 		$this->setParam('navbar', Template::getNavbar());
+	}
+
+	public function actStatement($action, $condition) {
+
 	}
 
 	public function setBreadcrumb() {

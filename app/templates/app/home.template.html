@@ -8,39 +8,25 @@
 	</div>
 </div>
 <section class="container-fluid flex-grow">
-	{{$breadcrumb}}
+	{{ $breadcrumb }}
 	<div class="row">
 		<div class="col-md-8 offset-md-2">
-			<div class="row">
-				<article class="col-md-4">
-					<h2>Lorem Ipsum Dolor Sit Amet</h2>
-					<p>Lorem ipsum dolor sit amet, per eu meliore nusquam facilisi, cu possit graeco nostro sea, eruditi prodesset et mea. No sea habeo movet persecuti, docendi noluisse ad nam. Et pri duis facilisi, cum omnis patrioque et</p>
-				</article>
-				<article class="col-md-4">
-					<h2>Lorem Ipsum Dolor Sit Amet</h2>
-					<p>Lorem ipsum dolor sit amet, per eu meliore nusquam facilisi, cu possit graeco nostro sea, eruditi prodesset et mea. No sea habeo movet persecuti, docendi noluisse ad nam. Et pri duis facilisi, cum omnis patrioque et</p>
-				</article>
-				<article class="col-md-4">
-					<h2>Lorem Ipsum Dolor Sit Amet</h2>
-					<p>Lorem ipsum dolor sit amet, per eu meliore nusquam facilisi, cu possit graeco nostro sea, eruditi prodesset et mea. No sea habeo movet persecuti, docendi noluisse ad nam. Et pri duis facilisi, cum omnis patrioque et</p>
-				</article>
-			</div><br />
-			<div class="row">
-				<article class="col-md-6">
-					<h2>Lorem Ipsum Dolor Sit Amet</h2>
-					<p>Lorem ipsum dolor sit amet, per eu meliore nusquam facilisi, cu possit graeco nostro sea, eruditi prodesset et mea. No sea habeo movet persecuti, docendi noluisse ad nam. Et pri duis facilisi, cum omnis patrioque et</p>
-				</article>
-				<article class="col-md-6">
-					<h2>Lorem Ipsum Dolor Sit Amet</h2>
-					<p>Lorem ipsum dolor sit amet, per eu meliore nusquam facilisi, cu possit graeco nostro sea, eruditi prodesset et mea. No sea habeo movet persecuti, docendi noluisse ad nam. Et pri duis facilisi, cum omnis patrioque et</p>
-				</article>
-			</div><br />
-			<div class="row">
-				<article class="col-md-12">
-					<h2>Lorem Ipsum Dolor Sit Amet</h2>
-					<p>Lorem ipsum dolor sit amet, per eu meliore nusquam facilisi, cu possit graeco nostro sea, eruditi prodesset et mea. No sea habeo movet persecuti, docendi noluisse ad nam. Et pri duis facilisi, cum omnis patrioque et</p>
-				</article>
-			</div>
+			{{ foreach $articles as $article_row }}
+				<div class="row">
+					{{ foreach $article_row as $article }}
+						<article class="col-md-{{ 12 / count($article_row) }}">
+							<h2>{{ $article['title'] }}</h2>
+							<p>{{ $article['description'] }}</p>
+						</article>
+					{{ endforeach }}
+				</div>
+			{{ forelse }}
+				<div class="row">
+					<article class="col-md-12">
+						<h3 class="text-danger">No articles found.</h3>
+					</article>
+				</div>
+			{{ endif }}
 		</div>
 	</div>
 </section>
