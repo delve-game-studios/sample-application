@@ -13,9 +13,9 @@ class Doctrine {
 
 	private function __construct() {
 		$configHelper = Config::getInstance();
-		$this->_dbParams = $configHelper->getParam('DB::params', []);
-		$paths = $configHelper->getParam('DB::paths');
-		$isDevMode = $configHelper->getParam('DB::isDevMode');
+		$this->_dbParams = $configHelper->getParam('DB::doctrine::params', []);
+		$paths = $configHelper->getParam('DB::doctrine::paths');
+		$isDevMode = $configHelper->getParam('DB::doctrine::isDevMode');
 		$this->_config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
 		$this->_em = EntityManager::create($this->_dbParams, $this->_config);
 	}

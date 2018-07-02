@@ -14,7 +14,7 @@ class ModulesFactory extends Factory {
 	* Initialize the ModulesFactory
 	**/
 	public function init() {
-		$this->modules = $this->getParam('modules', []);
+		$this->modules = $this->getAllParams();
 	}
 
 
@@ -23,14 +23,13 @@ class ModulesFactory extends Factory {
 	* @param String $name
 	* @return App\Modules\Interfaces\Module
 	**/
-	public function get($name) {
-		if(isset($this->modules[$name])) {
-			$class = $this->modules[$name];
+	public function get($class) {
+		if(isset($this->modules[$class])) {
 			$classInstance = $class::getInstance();
 			return $classInstance;
 		}
 
 		//put more apropriate error message here
-		throw new ModuleNotFoundException($name);
+		throw new ModuleNotFoundException($class);
 	}
 }

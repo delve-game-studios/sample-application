@@ -14,7 +14,7 @@ class ViewsFactory extends Factory {
 	* Initialize the ViewsFactory
 	**/
 	public function init() {
-		$this->views = $this->getParam('views', []);
+		$this->views = $this->getAllParams();
 	}
 
 
@@ -23,20 +23,24 @@ class ViewsFactory extends Factory {
 	* @param String $name
 	* @return App\Views\View
 	**/
-	public function get($name, $arguments = null) {
-		if(isset($this->views[$name])) {
-			$class = $this->views[$name];
+	public function get($class, $arguments = null) {
+		$classMap = explode('\\', $class);
+		if(count($classMap) === 1) {
+			$class = "App\\Views\\{$class}";
+		}
+		
+		if(isset($this->views[$class])) {
 
 			if($arguments) {
-				$controller = $class::getInstance($arguments);
+				$view = $class::getInstance($arguments);
 			} else {
-				$controller = $class::getInstance();
+				$view = $class::getInstance();
 			}
 
-			return $controller;
+			return $view;
 		}
 
 		//put more apropriate error message here
-		throw new ViewNotFoundException($name);
+		throw new ViewNotFoundException($class);
 	}
 }

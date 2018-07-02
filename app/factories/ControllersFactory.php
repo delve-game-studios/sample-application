@@ -14,7 +14,7 @@ class ControllersFactory extends Factory {
 	* Initialize the ControllersFactory
 	**/
 	public function init() {
-		$this->controllers = $this->getParam('controllers', []);
+		$this->controllers = $this->getAllParams();
 	}
 
 
@@ -23,9 +23,13 @@ class ControllersFactory extends Factory {
 	* @param String $name
 	* @return App\Controllers\Controller
 	**/
-	public function get($name, $arguments = null) {
-		if(isset($this->controllers[$name])) {
-			$class = $this->controllers[$name];
+	public function get($class, $arguments = null) {
+		$classMap = explode('\\', $class);
+		if(count($classMap) === 1) {
+			$class = "App\\Controllers\\{$class}";
+		}
+
+		if(isset($this->controllers[$class])) {
 
 			if($arguments) {
 				$controller = $class::getInstance($arguments);
@@ -37,6 +41,6 @@ class ControllersFactory extends Factory {
 		}
 
 		//put more apropriate error message here
-		throw new ControllerNotFoundException($name);
+		throw new ControllerNotFoundException($class);
 	}
 }

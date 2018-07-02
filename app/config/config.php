@@ -36,13 +36,25 @@ return [
 		]
 	],
 	'DB' => [
-		'params' => [
-			'driver' => 'pdo_mysql',
-			'user' => 'root',
-			'password' => '61p1yw4azD16',
-			'dbname' => 'sampledb'
+		'doctrine' => [
+			'params' => [
+				'driver' => 'pdo_mysql',
+				'user' => 'root',
+				'password' => '61p1yw4azD16',
+				'dbname' => 'sampledb'
+			],
+			'paths' => [dirname(APP . 'models')],
+			'isDevMode' => false
 		],
-		'paths' => [dirname(APP . 'models')],
-		'isDevMode' => false
+		'illuminate' => [
+		    'driver'    => 'mysql',
+		    'host'      => 'localhost',
+		    'database'  => 'sampledb',
+		    'username'  => 'root',
+		    'password'  => '61p1yw4azD16',
+		    'charset'   => 'utf8',
+		    'collation' => 'utf8_unicode_ci',
+		    'prefix'    => '',
+		]
 	]
 ];

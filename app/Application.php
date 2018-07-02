@@ -4,7 +4,12 @@ namespace App;
 use App\Factories\HelpersFactory;
 use App\Helpers\Traits\SingletonPattern;
 
-
+/**
+ * Sample application
+ *
+ * @package Sample Application
+ * @author Milan Vugrinchev
+*/
 class Application {
 	use SingletonPattern;
 
@@ -15,7 +20,7 @@ class Application {
 
 	private function __construct() {
 		/**
-		* @var App\Helpers\Factories\HelperFactory
+		* @var $factory App\Helpers\Factories\HelperFactory
 		*/
 		$factory = HelpersFactory::getInstance();
 

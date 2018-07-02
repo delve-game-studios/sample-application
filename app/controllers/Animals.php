@@ -3,7 +3,7 @@
 namespace App\Controllers;
 use App\Controllers\Controller as AbstractController;
 use App\Helpers\Request;
-use App\Helpers\Doctrine;
+use App\Helpers\Capsule;
 
 class Animals extends AbstractController {
 
@@ -17,7 +17,8 @@ class Animals extends AbstractController {
 	}
 
 	public function edit(Request $request) {
-		$doct = Doctrine::getInstance();
-		var_dump($doct);exit;
+		$doct = Capsule::getInstance();
+		$cap = Capsule::getInstance();
+		$cap->getSchema()->drop('users');
 	}
 }

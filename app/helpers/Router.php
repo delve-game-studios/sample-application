@@ -9,6 +9,10 @@ use App\Factories\ControllersFactory;
 use App\Helpers\Module;
 use App\Application;
 
+/**
+* @author Milan Vugrinchev
+*/
+
 class Router implements Helper {
 	use SingletonPattern;
 
@@ -56,22 +60,11 @@ class Router implements Helper {
 	}
 
 	/**
-	* Static route only
 	* Uses the REQUEST_URI to match it to routes config.
+	* @return Mixed
 	*/
 	public function matchRoute() {
 		$controllersFactory = ControllersFactory::getInstance();
-
-		// if($route = self::$routes[self::$path]) {
-		// 	self::$controller = end(explode('\\', $route['class']));
-		// 	self::$action = $route['action'];
-		// 	self::$params = $route['params'];
-			
-		// 	array_unshift(self::$params, Request::getInstance());
-
-		// 	$controller = $controllersFactory->get(self::$controller);
-		// 	return call_user_func_array([$controller, self::$action], self::$params);
-		// }
 
 		foreach(self::$routes as $route ) {
 			if(isset($route['regex']) && preg_match("#{$route['regex']}#", self::$path, $matches)) {
@@ -93,7 +86,8 @@ class Router implements Helper {
 		}
 
 		if($route = self::$routes[self::$path]) {
-			self::$controller = end(explode('\\', $route['class']));
+			$routeClassArr = explode('\\', $route['class']);
+			self::$controller = end($routeClassArr);
 			self::$action = $route['action'];
 			self::$params = $route['params'];
 			

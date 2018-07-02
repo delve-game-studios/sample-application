@@ -6,15 +6,10 @@ use App\Factories\ErrorHandlers\HelperNotFoundException;
 class HelpersFactory extends Factory {
 
 	/**
-	* @property Factory::factories['helpers'] $helpers
-	*/
-	private $helpers;
-
-	/**
 	* Initialize the HelpersFactory
 	**/
 	public function init() {
-		$this->helpers = $this->getParam('helpers', []);
+		$this->helpers = $this->getAllParams();
 	}
 
 
@@ -23,9 +18,13 @@ class HelpersFactory extends Factory {
 	* @param String $name
 	* @return App\Helpers\Interfaces\Helper
 	**/
-	public function get($name, $arguments = []) {
-		if(isset($this->helpers[$name])) {
-			$class = $this->helpers[$name];
+	public function get($class, $arguments = []) {
+		$classMap = explode('\\', $class);
+		if(count($classMap) === 1) {
+			$class = "App\\Helpers\\{$class}";
+		}
+		
+		if(isset($this->helpers[$class])) {
 			$classInstance = $class::getInstance($arguments);
 			return $classInstance;
 		}

@@ -18,10 +18,13 @@ class Template implements Helper {
 		$config = Config::getInstance();
 
 		$this->params = [];
-		$this->breadcrumb = [];
+		static::$breadcrumb = [];
 		
-		$arguments['class'] = end(explode('\\', $arguments['class']));
-		$arguments['method'] = end(explode('::', $arguments['method']));
+		$argClassArr = explode('\\', $arguments['class']);
+		$argMethodArr = explode('::', $arguments['method']);
+		
+		$arguments['class'] = end($argClassArr);
+		$arguments['method'] = end($argMethodArr);
 
 		$this->setParam('args', $arguments);
 

@@ -20,8 +20,8 @@ class Module implements Helper {
 
 	public function loadModules() {
 		$moduleFactory = ModulesFactory::getInstance();
-		foreach($this->modules as $name => $module) {
-			$this->_moduleInstances[$name] = $moduleFactory->get($name);
+		foreach($this->modules as $module) {
+			$this->_moduleInstances[$module] = $moduleFactory->get($module);
 		}
 	}
 

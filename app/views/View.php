@@ -57,7 +57,8 @@ abstract class View {
 
 		$template = preg_replace_callback('#\{\{\s+?(?<action>if|for|foreach|elseif)\s+?(?<condition>.*)\s+?\}\}#', function($m) {
 			if($m['action'] == 'foreach') {
-				$var = reset(explode(' as ', $m['condition']));
+				$var = explode(' as ', $m['condition']);
+				$var = reset($var);
 
 				$m['action'] = "if(!empty({$var})):foreach";
 			}
@@ -94,10 +95,6 @@ abstract class View {
 
 	public function setNavbar() {
 		$this->setParam('navbar', Template::getNavbar());
-	}
-
-	public function actStatement($action, $condition) {
-
 	}
 
 	public function setBreadcrumb() {

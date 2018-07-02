@@ -14,7 +14,8 @@ abstract class Repository {
 
 	private function __construct() {
 		$config = Config::getInstance();
-		$this->model = $config->getParam('namespaces::models') . '\\' . end(explode('\\', get_called_class()));
+		$classMap = explode('\\', get_called_class());
+		$this->model = $config->getParam('namespaces::models') . '\\' . end($classMap);
 	}
 
 	public function getModelInstance() {

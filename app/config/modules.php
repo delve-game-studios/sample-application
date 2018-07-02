@@ -1,5 +1,5 @@
 <?php
 
 return [
-	'Users' => \Users\Module::class,
+	\Users\Module::class,
 ];

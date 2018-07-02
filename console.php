@@ -7,5 +7,13 @@ define('VENDOR', ROOT  . 'vendor' . DIRECTORY_SEPARATOR);
 
 require_once VENDOR . 'autoload.php';
 
-$app = App\Application::getInstance();
-$app->exec();
+$key = !empty($argv[1]) ? $argv[1] : '';
+
+$obj = \App\Helpers\Console::getInstance();
+
+if(method_exists($obj, $key)) {
+	$result = call_user_func([$obj, $key]);
+	var_dump($result); // using var_dump for better print
+} else {
+	echo 'Wrong call';
+}

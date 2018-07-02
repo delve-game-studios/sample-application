@@ -28,8 +28,8 @@ abstract class Controller {
 		$this->helpersFactory = HelpersFactory::getInstance();
 		$this->repositoriesFactory = RepositoriesFactory::getInstance();
 		$viewsFactory = ViewsFactory::getInstance();
-		$class = end(explode('\\', get_called_class()));
-		$this->view = $viewsFactory->get($class);
+		$viewName = preg_replace('#Controllers#', 'Views', get_called_class());
+		$this->view = $viewsFactory->get($viewName);
 	}
 
 	/**

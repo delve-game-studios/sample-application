@@ -10,7 +10,7 @@ abstract class Factory implements FactoryInterface {
 	use HasParams;
 
 	private function __construct() {
-		$this->params = include(ROOT . 'app/config/factories.php');
+		$this->params = include(VENDOR . 'composer/autoload_classmap.php');
 		$this->init();
 	}
 }

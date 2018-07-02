@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Factories;
+use App\Factories\ErrorHandlers\RepositoryNotFoundException;
 
 class RepositoriesFactory extends Factory {
 
@@ -13,7 +14,7 @@ class RepositoriesFactory extends Factory {
 	* Initialize the RepositoriesFactory
 	**/
 	public function init() {
-		$this->repositories = $this->getParam('repositories', []);
+		$this->repositories = $this->getAllParams();
 	}
 
 
@@ -22,14 +23,18 @@ class RepositoriesFactory extends Factory {
 	* @param String $name
 	* @return App\Repositories\Interfaces\Helper
 	**/
-	public function get($name, $arguments = []) {
-		if(isset($this->repositories[$name])) {
-			$class = $this->repositories[$name];
+	public function get($class, $arguments = []) {
+		$classMap = explode('\\', $class);
+		if(count($classMap) === 1) {
+			$class = "App\\Repositories\\{$class}";
+		}
+
+		if(isset($this->repositories[$class])) {
 			$classInstance = $class::getInstance($arguments);
 			return $classInstance;
 		}
 
 		//put more apropriate error message here
-		throw new HelperNotFoundException($name);
+		throw new RepositoryNotFoundException($class);
 	}
 }

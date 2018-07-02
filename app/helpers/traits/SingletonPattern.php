@@ -10,7 +10,7 @@ trait SingletonPattern {
 	public static $_instances;
 
 	/**
-	* @return Object $instance
+	* @return Object $instance The called instance
 	**/
 	public static function getInstance($arguments = []) {
 		$class = get_called_class();
