@@ -9,7 +9,7 @@ use App\Helpers\Router;
 class App extends AbstractController {
 
 	public function index(Request $request) {
-		\App\Helpers\Console::getInstance()->migrate();
+		// \App\Helpers\Console::getInstance()->migrate(); // do all available migrations
 		$view = $this->getView();
 		$view->setNavbar();
 		$view->home();
