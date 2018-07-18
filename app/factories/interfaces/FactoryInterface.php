@@ -2,6 +2,7 @@
 
 namespace App\Factories\Interfaces;
 
-interface FactoryInterface {
-	public function get($type);
+interface FactoryInterface
+{
+    public function get($type);
 }

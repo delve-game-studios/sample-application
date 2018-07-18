@@ -2,7 +2,8 @@
 
 namespace App\Models\Traits;
 
-trait BasicModel {
-	public $name;
-	public $description;
+trait BasicModel
+{
+    public $name;
+    public $description;
 }

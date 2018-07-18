@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
-class Animal extends Repository {
-	
+class Animal extends Repository
+{
+    
 }

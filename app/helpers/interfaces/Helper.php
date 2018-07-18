@@ -2,4 +2,7 @@
 
 namespace App\Helpers\Interfaces;
 
-interface Helper {}
+interface Helper
+{
+
+}
